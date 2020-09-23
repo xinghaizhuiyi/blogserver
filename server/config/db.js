@@ -17,7 +17,16 @@ async function getAllTag() {
     })
 }
 
+async function getTag(tag) {
+    return bowenModel.findAll({
+        attributes: ['bowen'],
+        where: {
+            tag
+          }
+    })
+}
+
 module.exports = {
     getAllTag,
-    
+    getTag
 }
