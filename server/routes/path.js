@@ -1,12 +1,12 @@
 const Router = require('koa-router')
-const { getAllTag, getTag } = require('../config/db')
+const { getAllTag, getTag,getAllBowen } = require('../config/db')
 
 const router = new Router()
 
-router.put('/tag', async (ctx) => {
+router.get('/tag', async (ctx) => {
     const tag = await getAllTag()
     ctx.body = {
-        status: 1,
+        status: 'ok',
         data: tag
     }
 })
@@ -14,10 +14,18 @@ router.put('/tag', async (ctx) => {
 router.get('/tag/:blogTag', async (ctx) => {
     let tagMatch = /([^/]+)$/
     let blogTag = ctx.request.url.match(tagMatch)
-    const tag = await getTag(blogTag)
+    const tagbowen = await getTag(blogTag)
     ctx.body = {
-        status: 1,
-        data: tag
+        status: 'ok',
+        data: tagbowen
+    }
+})
+
+router.get('/bowen', async (ctx) => {
+    const bowen = await getAllBowen()
+    ctx.body = {
+        status: 'ok',
+        data: bowen
     }
 })
 

@@ -11,9 +11,23 @@ const sequelize = new Sequelize('blog', 'root', '990808', {
 const tagModel = TagModel(sequelize);
 const bowenModel = BowenModel(sequelize);
 
+
+//tag库
+
+//搜索全部tag
 async function getAllTag() {
     return tagModel.findAll({
         attributes: ['tag','quantity']
+    })
+}
+
+
+//文章库
+
+//按tag搜索
+async function getAllBowen() {
+    return bowenModel.findAll({
+        attributes: ['tag','blogname','introduction']
     })
 }
 
@@ -28,5 +42,6 @@ async function getTag(tag) {
 
 module.exports = {
     getAllTag,
-    getTag
+    getTag,
+    getAllBowen
 }
