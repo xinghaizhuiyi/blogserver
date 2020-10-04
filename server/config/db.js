@@ -17,31 +17,45 @@ const bowenModel = BowenModel(sequelize);
 //搜索全部tag
 async function getAllTag() {
     return tagModel.findAll({
-        attributes: ['tag','quantity']
+        attributes: ['tag', 'quantity']
     })
 }
 
 
 //文章库
 
-//按tag搜索
-async function getAllBowen() {
-    return bowenModel.findAll({
-        attributes: ['tag','blogname','introduction']
+//获取文章数量
+async function getBowenCount(page) {
+    jump=(page - 1) * 10
+    console.log(page)
+    return bowenModel.findAndCountAll({
+
+        attributes: ['tag', 'blogname', 'introduction'],
+        offset: jump,
+        limit: 10,
     })
 }
 
+//搜索全部文章
+async function getAllBowen() {
+    return bowenModel.findAll({
+        attributes: ['tag', 'blogname', 'introduction']
+    })
+}
+
+//按tag搜索
 async function getTag(tag) {
     return bowenModel.findAll({
-        attributes: ['blogname','introduction'],
+        attributes: ['blogname', 'introduction'],
         where: {
             tag
-          }
+        }
     })
 }
 
 module.exports = {
     getAllTag,
     getTag,
-    getAllBowen
+    getAllBowen,
+    getBowenCount
 }
